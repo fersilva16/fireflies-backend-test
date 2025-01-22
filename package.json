@@ -1,7 +1,9 @@
 {
   "name": "fireflies-backend-test",
-  "version": "1.0.0",
-  "main": "index.js",
+  "description": "Solution for the Backend Test from Fireflies.ai",
+  "author": "Fernando Silva <fernandonsilva16@gmail.com>",
+  "version": "0.0.1",
+  "main": "dist/index.js",
   "type": "module",
   "scripts": {
     "format": "prettier --write .",
@@ -9,10 +11,6 @@
     "seed": "node --import=tsx src/seed.ts",
     "start": "node --import=tsx src/server.ts"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
   "dependencies": {
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
