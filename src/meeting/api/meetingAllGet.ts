@@ -1,5 +1,6 @@
-import { Response } from 'express';
-import { AuthenticatedRequest } from '../../auth.middleware';
+import { type Response } from 'express';
+
+import { type AuthenticatedRequest } from '../../auth.middleware';
 import { MeetingModel } from '../MeetingModel';
 
 export const meetingAllGet = async (

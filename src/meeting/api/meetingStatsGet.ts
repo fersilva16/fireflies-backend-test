@@ -1,7 +1,8 @@
-import { Response } from 'express';
-import { AuthenticatedRequest } from '../../auth.middleware';
+import { type Response } from 'express';
 
-export const meetingStatsGet = (req: AuthenticatedRequest, res: Response) => {
+import { type AuthenticatedRequest } from '../../auth.middleware';
+
+export const meetingStatsGet = (_: AuthenticatedRequest, res: Response) => {
   // TODO: get statistics from the database
   const stats = {
     generalStats: {

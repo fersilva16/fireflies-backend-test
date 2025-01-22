@@ -1,12 +1,12 @@
 import express from 'express';
 
 import { authMiddleware } from './auth.middleware.js';
-import { dashboardRoutes } from './dashboard/dashboardRoutes.js';
-import { meetingRoutes } from './meeting/meetingRoutes.js';
 import { config } from './config.js';
+import { dashboardRoutes } from './dashboard/dashboardRoutes.js';
 import { errorHandler } from './errorHandler.js';
-import { mongooseConnect } from './mongoose/mongooseConnect.js';
 import { logger } from './logger.js';
+import { meetingRoutes } from './meeting/meetingRoutes.js';
+import { mongooseConnect } from './mongoose/mongooseConnect.js';
 
 const app = express();
 
@@ -14,7 +14,7 @@ await mongooseConnect();
 
 app.use(express.json());
 
-app.get('/', (req, res) => {
+app.get('/', (_, res) => {
   res.json({ message: 'Welcome to the MeetingBot API' });
 });
 

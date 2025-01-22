@@ -10,7 +10,11 @@ if (unsanitizedArgs.length < 3) {
   process.exit(1);
 }
 
-const [userId, meetingId, transcript] = unsanitizedArgs;
+const [userId, meetingId, transcript] = unsanitizedArgs as [
+  string,
+  string,
+  string,
+];
 
 const body = {
   transcript,
