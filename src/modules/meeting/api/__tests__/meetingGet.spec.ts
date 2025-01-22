@@ -24,6 +24,13 @@ it('should return the meeting', async () => {
   expect(response.status).toBe(200);
 
   expect(response.body._id.toString()).toBe(meeting._id.toString());
+  expect(response.body.title).toBe(meeting.title);
+  expect(response.body.date).toBe(meeting.date.toISOString());
+  expect(response.body.participants).toEqual(meeting.participants);
+  expect(response.body.transcript).toBe(meeting.transcript);
+  expect(response.body.summary).toBe(meeting.summary);
+  expect(response.body.duration).toBe(meeting.duration);
+  expect(response.body.actionItems).toEqual(meeting.actionItems);
 
   expect(response.body.tasks).toHaveLength(1);
   expect(response.body.tasks[0]._id.toString()).toBe(task._id.toString());

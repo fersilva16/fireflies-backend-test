@@ -25,6 +25,6 @@ export const mongoosePaginate = async <T>({
     page,
     count: data.length,
     hasNextPage: page * limit < total,
-    data,
+    data: data as T[],
   };
 };

@@ -4,6 +4,7 @@ import { z } from 'zod';
 import type { AuthenticatedState } from '../../../middleware/authMiddleware';
 import { mongoosePaginate } from '../../../mongoose/mongoosePaginate';
 import { MeetingModel } from '../MeetingModel';
+import { meetingApiMap } from '../meetingApiMap';
 
 const querySchema = z.object({
   page: z.coerce
@@ -43,5 +44,8 @@ export const meetingAllGet = async (
     },
   });
 
-  ctx.body = slice;
+  ctx.body = {
+    ...slice,
+    data: slice.data.map(meetingApiMap),
+  };
 };

@@ -3,6 +3,7 @@ import { z } from 'zod';
 
 import type { AuthenticatedState } from '../../../middleware/authMiddleware';
 import { MeetingModel } from '../MeetingModel';
+import { meetingApiMap } from '../meetingApiMap';
 
 const bodySchema = z.object({
   title: z.string().min(1, 'Title must not be empty'),
@@ -36,5 +37,5 @@ export const meetingPost = async (
     participants,
   }).save();
 
-  ctx.body = meeting.toJSON();
+  ctx.body = meetingApiMap(meeting);
 };
