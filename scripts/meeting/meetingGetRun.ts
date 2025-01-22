@@ -10,7 +10,7 @@ if (unsanitizedArgs.length < 2) {
   process.exit(1);
 }
 
-const [userId, meetingId] = unsanitizedArgs;
+const [userId, meetingId] = unsanitizedArgs as [string, string];
 
 const response = await fetch(
   `http://localhost:${config.PORT}/api/meetings/${meetingId}`,

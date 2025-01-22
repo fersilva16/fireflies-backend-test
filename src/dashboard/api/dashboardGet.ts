@@ -1,7 +1,8 @@
-import { Response } from 'express';
-import { AuthenticatedRequest } from '../../auth.middleware';
-import { MeetingModel } from '../../meeting/MeetingModel';
+import { type Response } from 'express';
 import mongoose, { Types } from 'mongoose';
+
+import { type AuthenticatedRequest } from '../../auth.middleware';
+import { MeetingModel } from '../../meeting/MeetingModel';
 
 interface UpcomingMeeting {
   _id: Types.ObjectId;
@@ -29,15 +30,12 @@ interface DashboardData {
   overdueTasks: OverdueTask[];
 }
 
-export const dashboardGet = async (
-  req: AuthenticatedRequest,
-  res: Response,
-) => {
+export const dashboardGet = async (_: AuthenticatedRequest, res: Response) => {
   // TODO: fix this
   // it should be sorted by date, only include upcoming meetings, limit to 5 and only include the _id, title, date, and participantCount fields
   const upcomingMeetings = (await MeetingModel.find()).map((meeting) => {
     return {
-      _id: meeting._id as Types.ObjectId,
+      _id: meeting._id,
       title: meeting.title,
       date: meeting.date,
       participantCount: meeting.participants.length,
