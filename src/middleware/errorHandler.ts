@@ -2,7 +2,7 @@ import type { Next, ParameterizedContext } from 'koa';
 
 import { logger } from '../logger';
 
-export const errorMiddelware = async (
+export const errorMiddleware = async (
   ctx: ParameterizedContext,
   next: Next,
 ) => {
