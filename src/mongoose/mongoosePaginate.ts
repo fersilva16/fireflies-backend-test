@@ -13,7 +13,7 @@ export const mongoosePaginate = async <T>({
   limit,
   filters = {},
 }: MongoosePaginateArgs<T>) => {
-  const total = await model.countDocuments();
+  const total = await model.countDocuments(filters);
 
   const skip = (page - 1) * limit;
 

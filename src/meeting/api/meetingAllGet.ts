@@ -12,6 +12,7 @@ const querySchema = z.object({
     .default(1),
   limit: z.coerce
     .number()
+    .min(1, 'Limit must be greater than or equal to 1')
     .max(100, 'Limit must be less than or equal to 100')
     .default(10),
 });
@@ -37,6 +38,9 @@ export const meetingAllGet = async (
     model: MeetingModel,
     page,
     limit,
+    filters: {
+      userId: ctx.state.userId,
+    },
   });
 
   ctx.body = slice;
