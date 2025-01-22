@@ -1,10 +1,10 @@
 import Router from '@koa/router';
 
-import { meetingGet } from './api/meetingGet.js';
-import { meetingPost } from './api/meetingPost.js';
-import { meetingTranscriptPut } from './api/meetingTranscriptPut.js';
-import { meetingAllGet } from '../meeting/api/meetingAllGet.js';
-import { meetingStatsGet } from '../meeting/api/meetingStatsGet.js';
+import { meetingGet } from './api/meetingGet';
+import { meetingPost } from './api/meetingPost';
+import { meetingTranscriptPut } from './api/meetingTranscriptPut';
+import { meetingAllGet } from '../meeting/api/meetingAllGet';
+import { meetingStatsGet } from '../meeting/api/meetingStatsGet';
 
 const meetingRoutes = new Router();
 
