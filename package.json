@@ -14,7 +14,7 @@
     "seed": "tsx src/seed.ts",
     "start": "tsx watch src/server.ts",
     "test": "vitest",
-    "coverage": "vitest run --coverage",
+    "test:coverage": "vitest run --coverage",
     "type-check": "tsc --noEmit",
     "x": "tsx"
   },
