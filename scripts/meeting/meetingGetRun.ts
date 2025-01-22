@@ -4,7 +4,7 @@ const [, , ...unsanitizedArgs] = process.argv;
 
 if (unsanitizedArgs.length < 2) {
   console.log(
-    'Usage: npm run x scripts/meeting/meetingsGetRun.ts <userId> <meetingId>',
+    'Usage: npm run x scripts/meeting/meetingGetRun.ts <userId> <meetingId>',
   );
 
   process.exit(1);
