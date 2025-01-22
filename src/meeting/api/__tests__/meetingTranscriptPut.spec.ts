@@ -19,6 +19,7 @@ it('should update the transcript for a meeting', async () => {
     .set('content-type', 'application/json')
     .send({
       transcript: 'This is the new transcript',
+      duration: 183,
     });
 
   expect(response.status).toBe(200);
@@ -32,6 +33,7 @@ it('should update the transcript for a meeting', async () => {
 
   expect(meetingUpdated?._id.toString()).toBe(meeting._id.toString());
   expect(meetingUpdated?.transcript).toBe('This is the new transcript');
+  expect(meetingUpdated?.duration).toBe(183);
 });
 
 it('should not update the transcript for a meeting if user is not authenticated', async () => {
@@ -58,6 +60,7 @@ it('should not update the transcript for a meeting if meeting does not exist', a
     .set('content-type', 'application/json')
     .send({
       transcript: 'This is the new transcript',
+      duration: 183,
     });
 
   expect(response.status).toBe(404);
@@ -77,6 +80,7 @@ it('should not update the transcript for a meeting from other user', async () =>
     .set('content-type', 'application/json')
     .send({
       transcript: 'This is the new transcript',
+      duration: 183,
     });
 
   expect(response.status).toBe(404);
@@ -96,6 +100,7 @@ it('should not update the transcript for a meeting with invalid transcript', asy
     .set('content-type', 'application/json')
     .send({
       transcript: '',
+      duration: 183,
     });
 
   expect(response.status).toBe(400);

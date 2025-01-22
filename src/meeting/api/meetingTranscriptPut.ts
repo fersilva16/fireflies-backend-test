@@ -10,6 +10,7 @@ interface MeetingTranscriptPutParams {
 
 const bodySchema = z.object({
   transcript: z.string().min(1, 'Transcript must not be empty'),
+  duration: z.number().min(1, 'Duration must be greater than or equal to 1'),
 });
 
 export const meetingTranscriptPut = async (
@@ -43,7 +44,7 @@ export const meetingTranscriptPut = async (
     return;
   }
 
-  const { transcript } = result.data;
+  const { transcript, duration } = result.data;
 
   await MeetingModel.updateOne(
     {
@@ -52,6 +53,7 @@ export const meetingTranscriptPut = async (
     {
       $set: {
         transcript,
+        duration,
       },
     },
   );
