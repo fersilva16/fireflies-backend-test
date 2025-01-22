@@ -6,6 +6,7 @@ import { meetingRoutes } from './meeting/meetingRoutes.js';
 import { config } from './config.js';
 import { errorHandler } from './errorHandler.js';
 import { mongooseConnect } from './mongoose/mongooseConnect.js';
+import { logger } from './logger.js';
 
 const app = express();
 
@@ -23,6 +24,5 @@ app.use('/api/dashboard', authMiddleware, dashboardRoutes);
 app.use(errorHandler);
 
 app.listen(config.PORT, () => {
-  // eslint-disable-next-line no-console -- Add logger
-  console.log(`Server is running on port ${config.PORT}`);
+  logger.info(`Server is running on port ${config.PORT}`);
 });

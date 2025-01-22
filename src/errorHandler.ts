@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
+import { logger } from './logger';
 
 export const errorHandler = (err: unknown, req: Request, res: Response) => {
-  // eslint-disable-next-line no-console -- Add logger
-  console.error(err);
+  logger.error(err, 'API Error');
 
   res.status(500).json({ message: 'Internal Server Error' });
 };
