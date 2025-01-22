@@ -1,6 +1,6 @@
-import mongoose, { Document, Schema } from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
 
-export interface ITask extends Document {
+export interface ITask {
   meetingId: mongoose.Types.ObjectId;
   userId: string;
   title: string;
@@ -22,4 +22,4 @@ const taskSchema = new Schema<ITask>({
   dueDate: Date,
 });
 
-export const Task = mongoose.model<ITask>('Task', taskSchema);
+export const TaskModel = mongoose.model<ITask>('Task', taskSchema);

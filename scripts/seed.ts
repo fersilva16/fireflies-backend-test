@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 import { MeetingModel, type IMeeting } from '../src/meeting/MeetingModel.js';
-import { Task, ITask } from '../src/models/task.js';
+import { TaskModel, type ITask } from '../src/task/TaskModel.js';
 import { config } from '../src/config.js';
 
 await mongoose
