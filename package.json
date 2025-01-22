@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "format": "prettier --write .",
+    "lint": "eslint .",
     "seed": "node --import=tsx src/seed.ts",
     "start": "node --import=tsx src/server.ts"
   },
@@ -23,10 +24,14 @@
     "@types/jsonwebtoken": "^9.0.7",
     "@types/mongoose": "^5.11.97",
     "@types/node": "^22.7.5",
+    "eslint": "^9.18.0",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-unused-imports": "^4.1.4",
     "nodemon": "^3.1.7",
     "prettier": "^3.4.2",
     "ts-node": "^10.9.2",
     "tsx": "^4.19.1",
-    "typescript": "^5.6.3"
+    "typescript": "^5.6.3",
+    "typescript-eslint": "^8.21.0"
   }
 }
