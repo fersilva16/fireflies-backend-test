@@ -1,14 +1,22 @@
 import type { ParameterizedContext } from 'koa';
-import mongoose, { Types } from 'mongoose';
+import { Types } from 'mongoose';
 
 import { MeetingModel } from '../../meeting/MeetingModel';
 import type { AuthenticatedState } from '../../middleware/authMiddleware';
+import { TaskModel } from '../../task/TaskModel';
+import { TASK_STATUS_ENUM } from '../../task/TaskStatusEnum';
 
 interface UpcomingMeeting {
   _id: Types.ObjectId;
   title: string;
   date: Date;
   participantCount: number;
+}
+
+interface TaskSummary {
+  pending: number;
+  inProgress: number;
+  completed: number;
 }
 
 interface OverdueTask {
@@ -19,57 +27,114 @@ interface OverdueTask {
   meetingTitle: string;
 }
 
-interface DashboardData {
-  totalMeetings: number;
-  taskSummary: {
-    pending: number;
-    inProgress: number;
-    completed: number;
-  };
-  upcomingMeetings: UpcomingMeeting[];
-  overdueTasks: OverdueTask[];
-}
-
 export const dashboardGet = async (
   ctx: ParameterizedContext<AuthenticatedState>,
 ) => {
-  // TODO: fix this
-  // it should be sorted by date, only include upcoming meetings, limit to 5 and only include the _id, title, date, and participantCount fields
-  const upcomingMeetings = (await MeetingModel.find()).map((meeting) => {
-    return {
-      _id: meeting._id,
-      title: meeting.title,
-      date: meeting.date,
-      participantCount: meeting.participants.length,
-    };
+  const totalMeetings = await MeetingModel.countDocuments({
+    userId: ctx.state.userId,
   });
 
-  const dashboardData: DashboardData = {
-    totalMeetings: (await MeetingModel.find()).length,
-    taskSummary: {
-      pending: 10,
-      inProgress: 5,
-      completed: 2,
+  const upcomingMeetings = await MeetingModel.aggregate<UpcomingMeeting>([
+    {
+      $match: {
+        userId: ctx.state.userId,
+        date: { $gte: new Date() },
+      },
     },
-    upcomingMeetings,
-    // TODO: need to lookup meeting title from meeting collection
-    overdueTasks: [
-      {
-        _id: new mongoose.Types.ObjectId(),
-        title: 'Task 1',
-        dueDate: new Date(),
-        meetingId: new mongoose.Types.ObjectId(),
-        meetingTitle: 'Meeting 1',
+    {
+      $sort: {
+        date: -1,
       },
-      {
-        _id: new mongoose.Types.ObjectId(),
-        title: 'Task 2',
-        dueDate: new Date(),
-        meetingId: new mongoose.Types.ObjectId(),
-        meetingTitle: 'Meeting 2',
+    },
+    {
+      $limit: 5,
+    },
+    {
+      $project: {
+        _id: 0,
+        title: 1,
+        date: 1,
+        participantCount: { $size: '$participants' },
       },
-    ],
-  };
+    },
+  ]);
 
-  ctx.body = dashboardData;
+  const [taskSummary] = await TaskModel.aggregate<TaskSummary>([
+    {
+      $match: {
+        userId: ctx.state.userId,
+      },
+    },
+    {
+      $group: {
+        _id: null,
+        pending: {
+          $sum: {
+            $cond: [{ $eq: ['$status', TASK_STATUS_ENUM.PENDING] }, 1, 0],
+          },
+        },
+        inProgress: {
+          $sum: {
+            $cond: [{ $eq: ['$status', TASK_STATUS_ENUM.IN_PROGRESS] }, 1, 0],
+          },
+        },
+        completed: {
+          $sum: {
+            $cond: [{ $eq: ['$status', TASK_STATUS_ENUM.COMPLETED] }, 1, 0],
+          },
+        },
+      },
+    },
+    {
+      $project: {
+        _id: 0,
+        pending: 1,
+        inProgress: 1,
+        completed: 1,
+      },
+    },
+  ]);
+
+  const overdueTasks = await TaskModel.aggregate<OverdueTask>([
+    {
+      $match: {
+        userId: ctx.state.userId,
+        dueDate: { $lte: new Date() },
+        status: { $ne: TASK_STATUS_ENUM.COMPLETED },
+      },
+    },
+    {
+      $lookup: {
+        from: MeetingModel.collection.name,
+        localField: 'meetingId',
+        foreignField: '_id',
+        as: 'meeting',
+      },
+    },
+    {
+      $unwind: {
+        path: '$meeting',
+      },
+    },
+    {
+      $project: {
+        _id: 1,
+        title: 1,
+        dueDate: 1,
+        meetingId: '$meeting._id',
+        meetingTitle: '$meeting.title',
+      },
+    },
+  ]);
+
+  ctx.body = {
+    totalMeetings,
+    upcomingMeetings,
+    taskSummary: {
+      pending: taskSummary?.pending ?? 0,
+      inProgress: taskSummary?.inProgress ?? 0,
+      completed: taskSummary?.completed ?? 0,
+    },
+    overdueTasks,
+  };
 };
