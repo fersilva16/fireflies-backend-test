@@ -1,18 +1,16 @@
 import mongoose from 'mongoose';
 
-import { Meeting, IMeeting } from './models/meeting.js';
-import { Task, ITask } from './models/task.js';
+import { Meeting, IMeeting } from '../src/models/meeting.js';
+import { Task, ITask } from '../src/models/task.js';
 
 const MONGODB_URI = 'mongodb://localhost:27017/meetingbot';
 
 await mongoose
   .connect(MONGODB_URI)
   .then(() => {
-    // eslint-disable-next-line no-console -- Add logger
     console.log('Connected to MongoDB for seeding');
   })
   .catch((err: unknown) => {
-    // eslint-disable-next-line no-console -- Add logger
     console.error('MongoDB connection error:', err);
   });
 
@@ -66,7 +64,6 @@ async function seedMeetings() {
 
   await Meeting.insertMany(meetings);
 
-  // eslint-disable-next-line no-console -- Add logger
   console.log('Meetings seeded successfully');
 }
 
@@ -97,7 +94,6 @@ async function seedTasks() {
 
   await Task.insertMany(tasks);
 
-  // eslint-disable-next-line no-console -- Add logger
   console.log('Tasks seeded successfully');
 }
 
