@@ -1,27 +1,19 @@
-import express from 'express';
+import { bodyParser } from '@koa/bodyparser';
+import Koa from 'koa';
 
-import { authMiddleware } from './auth.middleware.js';
 import { config } from './config.js';
-import { dashboardRoutes } from './dashboard/dashboardRoutes.js';
-import { errorHandler } from './errorHandler.js';
 import { logger } from './logger.js';
-import { meetingRoutes } from './meeting/meetingRoutes.js';
 import { mongooseConnect } from './mongoose/mongooseConnect.js';
+import { routes } from './routes/routes.js';
 
-const app = express();
+const app = new Koa();
 
 await mongooseConnect();
 
-app.use(express.json());
+app.use(bodyParser());
 
-app.get('/', (_, res) => {
-  res.json({ message: 'Welcome to the MeetingBot API' });
-});
-
-app.use('/api/meetings', authMiddleware, meetingRoutes);
-app.use('/api/dashboard', authMiddleware, dashboardRoutes);
-
-app.use(errorHandler);
+app.use(routes.routes());
+app.use(routes.allowedMethods());
 
 app.listen(config.PORT, () => {
   logger.info(`Server is running on port ${config.PORT}`);

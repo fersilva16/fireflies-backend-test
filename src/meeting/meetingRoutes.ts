@@ -1,12 +1,12 @@
-import express from 'express';
+import Router from '@koa/router';
 
 import { meetingAllGet } from '../meeting/api/meetingAllGet.js';
 import { meetingStatsGet } from '../meeting/api/meetingStatsGet.js';
 
-export const router = express.Router();
+const meetingRoutes = new Router();
 
-router.get('/', meetingAllGet);
+meetingRoutes.get('/', meetingAllGet);
 
-router.get('/stats', meetingStatsGet);
+meetingRoutes.get('/stats', meetingStatsGet);
 
-export { router as meetingRoutes };
+export { meetingRoutes };

@@ -1,8 +1,10 @@
-import { type Response } from 'express';
+import type { ParameterizedContext } from 'koa';
 
-import { type AuthenticatedRequest } from '../../auth.middleware';
+import type { AuthenticatedState } from '../../middleware/authMiddleware';
 
-export const meetingStatsGet = (_: AuthenticatedRequest, res: Response) => {
+export const meetingStatsGet = (
+  ctx: ParameterizedContext<AuthenticatedState>,
+) => {
   // TODO: get statistics from the database
   const stats = {
     generalStats: {
@@ -31,5 +33,5 @@ export const meetingStatsGet = (_: AuthenticatedRequest, res: Response) => {
     ],
   };
 
-  res.json(stats);
+  ctx.body = stats;
 };
