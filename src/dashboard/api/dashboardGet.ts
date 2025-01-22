@@ -1,8 +1,8 @@
-import { type Response } from 'express';
+import type { ParameterizedContext } from 'koa';
 import mongoose, { Types } from 'mongoose';
 
-import { type AuthenticatedRequest } from '../../auth.middleware';
 import { MeetingModel } from '../../meeting/MeetingModel';
+import type { AuthenticatedState } from '../../middleware/authMiddleware';
 
 interface UpcomingMeeting {
   _id: Types.ObjectId;
@@ -30,7 +30,9 @@ interface DashboardData {
   overdueTasks: OverdueTask[];
 }
 
-export const dashboardGet = async (_: AuthenticatedRequest, res: Response) => {
+export const dashboardGet = async (
+  ctx: ParameterizedContext<AuthenticatedState>,
+) => {
   // TODO: fix this
   // it should be sorted by date, only include upcoming meetings, limit to 5 and only include the _id, title, date, and participantCount fields
   const upcomingMeetings = (await MeetingModel.find()).map((meeting) => {
@@ -69,5 +71,5 @@ export const dashboardGet = async (_: AuthenticatedRequest, res: Response) => {
     ],
   };
 
-  res.json(dashboardData);
+  ctx.body = dashboardData;
 };

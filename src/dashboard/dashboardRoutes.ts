@@ -1,9 +1,9 @@
-import express from 'express';
+import Router from '@koa/router';
 
 import { dashboardGet } from './api/dashboardGet.js';
 
-const router = express.Router();
+const dashboardRoutes = new Router();
 
-router.get('/', dashboardGet);
+dashboardRoutes.get('/', dashboardGet);
 
-export { router as dashboardRoutes };
+export { dashboardRoutes };
