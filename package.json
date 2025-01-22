@@ -9,7 +9,8 @@
     "format": "prettier --write .",
     "lint": "eslint .",
     "seed": "tsx src/seed.ts",
-    "start": "tsx watch src/server.ts"
+    "start": "tsx watch src/server.ts",
+    "x": "tsx"
   },
   "dependencies": {
     "express": "^4.21.1",
