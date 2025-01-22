@@ -1,37 +1,135 @@
 import type { ParameterizedContext } from 'koa';
 
 import type { AuthenticatedState } from '../../middleware/authMiddleware';
+import { MeetingModel } from '../MeetingModel';
 
-export const meetingStatsGet = (
+interface GeneralStats {
+  totalMeetings: number;
+  averageParticipants: number;
+  totalParticipants: number;
+  shortestMeeting: number;
+  longestMeeting: number;
+  averageDuration: number;
+}
+
+interface TopParticipant {
+  participant: string;
+  meetingCount: number;
+}
+
+interface MeetingsByDayOfWeek {
+  _id: number;
+  count: number;
+}
+
+export const meetingStatsGet = async (
   ctx: ParameterizedContext<AuthenticatedState>,
 ) => {
-  // TODO: get statistics from the database
-  const stats = {
-    generalStats: {
-      totalMeetings: 100,
-      averageParticipants: 4.75,
-      totalParticipants: 475,
-      shortestMeeting: 15,
-      longestMeeting: 120,
-      averageDuration: 45.3,
+  const [generalStats] = await MeetingModel.aggregate<GeneralStats>([
+    {
+      $match: {
+        userId: ctx.state.userId,
+      },
     },
-    topParticipants: [
-      { participant: 'John Doe', meetingCount: 20 },
-      { participant: 'Jane Smith', meetingCount: 18 },
-      { participant: 'Bob Johnson', meetingCount: 15 },
-      { participant: 'Alice Brown', meetingCount: 12 },
-      { participant: 'Charlie Davis', meetingCount: 10 },
-    ],
-    meetingsByDayOfWeek: [
-      { dayOfWeek: 1, count: 10 },
-      { dayOfWeek: 2, count: 22 },
-      { dayOfWeek: 3, count: 25 },
-      { dayOfWeek: 4, count: 20 },
-      { dayOfWeek: 5, count: 18 },
-      { dayOfWeek: 6, count: 5 },
-      { dayOfWeek: 7, count: 0 },
-    ],
-  };
+    {
+      $group: {
+        _id: null,
+        totalMeetings: { $sum: 1 },
+        averageParticipants: { $avg: { $size: '$participants' } },
+        totalParticipants: { $sum: { $size: '$participants' } },
+        shortestMeeting: { $min: '$duration' },
+        longestMeeting: { $max: '$duration' },
+        averageDuration: { $avg: '$duration' },
+      },
+    },
+    {
+      $project: {
+        _id: 0,
+        totalMeetings: 1,
+        averageParticipants: { $round: ['$averageParticipants', 2] },
+        totalParticipants: 1,
+        shortestMeeting: 1,
+        longestMeeting: 1,
+        averageDuration: { $round: ['$averageDuration', 2] },
+      },
+    },
+  ]);
 
-  ctx.body = stats;
+  const topParticipants = await MeetingModel.aggregate<TopParticipant>([
+    {
+      $match: {
+        userId: ctx.state.userId,
+      },
+    },
+    {
+      $unwind: {
+        path: '$participants',
+      },
+    },
+    {
+      $group: {
+        _id: '$participants',
+        meetingCount: { $sum: 1 },
+      },
+    },
+    {
+      $limit: 5,
+    },
+    {
+      $sort: {
+        meetingCount: -1,
+        _id: 1,
+      },
+    },
+    {
+      $project: {
+        _id: 0,
+        participant: '$_id',
+        meetingCount: 1,
+      },
+    },
+  ]);
+
+  const countByDayOfWeek = await MeetingModel.aggregate<MeetingsByDayOfWeek>([
+    {
+      $match: {
+        userId: ctx.state.userId,
+      },
+    },
+    {
+      $group: {
+        _id: {
+          $dayOfWeek: '$date',
+        },
+        count: { $sum: 1 },
+      },
+    },
+  ]);
+
+  // Normalize the day of weeks to have all days
+  const meetingsByDayOfWeek = Array.from({ length: 7 }, (_, i) => {
+    const dayOfWeek = i + 1;
+
+    const count = countByDayOfWeek.find(
+      (item) => item._id === dayOfWeek,
+    )?.count;
+
+    return {
+      dayOfWeek,
+      count: count ?? 0,
+    };
+  });
+
+  ctx.body = {
+    generalStats: {
+      totalMeetings: generalStats?.totalMeetings ?? 0,
+      averageParticipants: generalStats?.averageParticipants ?? 0,
+      totalParticipants: generalStats?.totalParticipants ?? 0,
+      shortestMeeting: generalStats?.shortestMeeting ?? 0,
+      longestMeeting: generalStats?.longestMeeting ?? 0,
+      averageDuration: generalStats?.averageDuration ?? 0,
+    },
+    topParticipants,
+    meetingsByDayOfWeek,
+  };
 };

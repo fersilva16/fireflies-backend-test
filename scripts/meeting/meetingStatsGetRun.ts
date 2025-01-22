@@ -2,7 +2,7 @@ import { config } from '../../src/config';
 
 const [, , ...unsanitizedArgs] = process.argv;
 
-if (unsanitizedArgs.length < 3) {
+if (unsanitizedArgs.length < 1) {
   console.log(
     'Usage: npm run x scripts/meeting/meetingStatsGetRun.ts <userId>',
   );
