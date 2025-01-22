@@ -2,11 +2,10 @@ import mongoose from 'mongoose';
 
 import { Meeting, IMeeting } from '../src/models/meeting.js';
 import { Task, ITask } from '../src/models/task.js';
-
-const MONGODB_URI = 'mongodb://localhost:27017/meetingbot';
+import { config } from '../src/config.js';
 
 await mongoose
-  .connect(MONGODB_URI)
+  .connect(config.MONGODB_URI)
   .then(() => {
     console.log('Connected to MongoDB for seeding');
   })
