@@ -12,7 +12,10 @@ export interface IMeeting {
 }
 
 const meetingSchema = new Schema<IMeeting>({
-  userId: String,
+  userId: {
+    type: String,
+    index: true,
+  },
   title: String,
   date: Date,
   participants: [String],
