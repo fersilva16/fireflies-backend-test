@@ -5,6 +5,8 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 export const config = {
+  NODE_ENV: process.env.NODE_ENV || 'development',
+
   PORT: Number(process.env.PORT) || 3000,
 
   MONGODB_URI:
