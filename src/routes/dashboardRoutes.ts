@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 import { Types } from 'mongoose';
 
 import { AuthenticatedRequest } from '../auth.middleware.js';
-import { Meeting } from '../models/meeting.js';
+import { MeetingModel } from '../meeting/MeetingModel.js';
 
 interface UpcomingMeeting {
   _id: Types.ObjectId;
@@ -36,7 +36,7 @@ const router = express.Router();
 router.get('/', async (req: AuthenticatedRequest, res) => {
   // TODO: fix this
   // it should be sorted by date, only include upcoming meetings, limit to 5 and only include the _id, title, date, and participantCount fields
-  const upcomingMeetings = (await Meeting.find()).map((meeting) => {
+  const upcomingMeetings = (await MeetingModel.find()).map((meeting) => {
     return {
       _id: meeting._id as mongoose.Types.ObjectId,
       title: meeting.title,
