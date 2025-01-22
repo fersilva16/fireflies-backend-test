@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+
 import { Meeting, IMeeting } from './models/meeting.js';
 import { Task, ITask } from './models/task.js';
 
@@ -6,8 +7,14 @@ const MONGODB_URI = 'mongodb://localhost:27017/meetingbot';
 
 await mongoose
   .connect(MONGODB_URI)
-  .then(() => console.log('Connected to MongoDB for seeding'))
-  .catch((err) => console.error('MongoDB connection error:', err));
+  .then(() => {
+    // eslint-disable-next-line no-console -- Add logger
+    console.log('Connected to MongoDB for seeding');
+  })
+  .catch((err: unknown) => {
+    // eslint-disable-next-line no-console -- Add logger
+    console.error('MongoDB connection error:', err);
+  });
 
 const users = ['user1', 'user2', 'user3', 'user4', 'user5'];
 const participants = [
@@ -58,6 +65,8 @@ async function seedMeetings() {
   }
 
   await Meeting.insertMany(meetings);
+
+  // eslint-disable-next-line no-console -- Add logger
   console.log('Meetings seeded successfully');
 }
 
@@ -87,6 +96,8 @@ async function seedTasks() {
   }
 
   await Task.insertMany(tasks);
+
+  // eslint-disable-next-line no-console -- Add logger
   console.log('Tasks seeded successfully');
 }
 

@@ -1,6 +1,7 @@
 import express from 'express';
-import { Meeting } from '../models/meeting.js';
+
 import { AuthenticatedRequest } from '../auth.middleware.js';
+import { Meeting } from '../models/meeting.js';
 
 export const router = express.Router();
 
@@ -21,7 +22,7 @@ router.get('/', async (req: AuthenticatedRequest, res) => {
 
 // TODO: implement other endpoints
 
-router.get('/stats', async (req: AuthenticatedRequest, res) => {
+router.get('/stats', (req: AuthenticatedRequest, res) => {
   try {
     // TODO: get statistics from the database
     const stats = {
