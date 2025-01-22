@@ -31,10 +31,9 @@ interface DashboardData {
   overdueTasks: OverdueTask[];
 }
 
-
 const router = express.Router();
 
-router.get("/", async (req: AuthenticatedRequest, res) => {
+router.get('/', async (req: AuthenticatedRequest, res) => {
   // TODO: fix this
   // it should be sorted by date, only include upcoming meetings, limit to 5 and only include the _id, title, date, and participantCount fields
   const upcomingMeetings = (await Meeting.find()).map((meeting) => {
@@ -58,17 +57,17 @@ router.get("/", async (req: AuthenticatedRequest, res) => {
     overdueTasks: [
       {
         _id: new mongoose.Types.ObjectId(),
-        title: "Task 1",
+        title: 'Task 1',
         dueDate: new Date(),
         meetingId: new mongoose.Types.ObjectId(),
-        meetingTitle: "Meeting 1",
+        meetingTitle: 'Meeting 1',
       },
       {
         _id: new mongoose.Types.ObjectId(),
-        title: "Task 2",
+        title: 'Task 2',
         dueDate: new Date(),
         meetingId: new mongoose.Types.ObjectId(),
-        meetingTitle: "Meeting 2",
+        meetingTitle: 'Meeting 2',
       },
     ],
   };
