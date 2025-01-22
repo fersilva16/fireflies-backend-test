@@ -47,3 +47,14 @@ it('should not return a meeting from other user', async () => {
   expect(response.status).toBe(404);
   expect(response.body.message).toBe('Meeting not found');
 });
+
+it('should not return meeting if meeting id is invalid', async () => {
+  const userId = 'user1';
+
+  const response = await request(app.callback())
+    .get(`/api/meetings/invalid_id`)
+    .set('x-user-id', userId);
+
+  expect(response.status).toBe(400);
+  expect(response.body.message).toBe('Invalid Id');
+});

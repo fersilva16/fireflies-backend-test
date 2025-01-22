@@ -1,4 +1,5 @@
 import type { ParameterizedContext } from 'koa';
+import { Types } from 'mongoose';
 import { z } from 'zod';
 
 import type { AuthenticatedState } from '../../middleware/authMiddleware';
@@ -17,6 +18,15 @@ export const meetingTranscriptPut = async (
   ctx: ParameterizedContext<AuthenticatedState>,
 ) => {
   const { id } = ctx.params as MeetingTranscriptPutParams;
+
+  if (!Types.ObjectId.isValid(id)) {
+    ctx.status = 400;
+    ctx.body = {
+      message: 'Invalid Id',
+    };
+
+    return;
+  }
 
   const meeting = await MeetingModel.findOne({
     _id: id,

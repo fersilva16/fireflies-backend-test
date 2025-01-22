@@ -113,3 +113,19 @@ it('should not update the transcript for a meeting with invalid transcript', asy
     formErrors: [],
   });
 });
+
+it('should not update the transcript for a meeting if meeting id is invalid', async () => {
+  const userId = 'user1';
+
+  const response = await request(app.callback())
+    .put(`/api/meetings/invalid_id/transcript`)
+    .set('x-user-id', userId)
+    .set('content-type', 'application/json')
+    .send({
+      transcript: 'This is the new transcript',
+      duration: 183,
+    });
+
+  expect(response.status).toBe(400);
+  expect(response.body.message).toBe('Invalid Id');
+});
