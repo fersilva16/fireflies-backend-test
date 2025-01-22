@@ -2,17 +2,10 @@ import mongoose from 'mongoose';
 
 import { MeetingModel, type IMeeting } from '../src/meeting/MeetingModel.js';
 import { TaskModel, type ITask } from '../src/task/TaskModel.js';
-import { config } from '../src/config.js';
+import { mongooseConnect } from '../src/mongoose/mongooseConnect';
 import { TASK_STATUS_ENUM } from '../src/task/TaskStatusEnum.js';
 
-await mongoose
-  .connect(config.MONGODB_URI)
-  .then(() => {
-    console.log('Connected to MongoDB for seeding');
-  })
-  .catch((err: unknown) => {
-    console.error('MongoDB connection error:', err);
-  });
+await mongooseConnect();
 
 const users = ['user1', 'user2', 'user3', 'user4', 'user5'];
 const participants = [

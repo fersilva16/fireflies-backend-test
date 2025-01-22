@@ -1,24 +1,15 @@
 import express from 'express';
-import mongoose from 'mongoose';
 
 import { authMiddleware } from './auth.middleware.js';
 import { dashboardRoutes } from './dashboard/dashboardRoutes.js';
 import { meetingRoutes } from './meeting/meetingRoutes.js';
 import { config } from './config.js';
 import { errorHandler } from './errorHandler.js';
+import { mongooseConnect } from './mongoose/mongooseConnect.js';
 
 const app = express();
 
-await mongoose
-  .connect(config.MONGODB_URI)
-  .then(() => {
-    // eslint-disable-next-line no-console -- Add logger
-    console.log('Connected to MongoDB');
-  })
-  .catch((err: unknown) => {
-    // eslint-disable-next-line no-console -- Add logger
-    console.error('MongoDB connection error:', err);
-  });
+await mongooseConnect();
 
 app.use(express.json());
 
