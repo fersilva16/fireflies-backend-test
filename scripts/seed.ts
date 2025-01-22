@@ -3,9 +3,9 @@ import mongoose from 'mongoose';
 import {
   MeetingModel,
   type IMeeting,
-} from '../src/modules/meeting/MeetingModel.js';
-import { TaskModel, type ITask } from '../src/modules/task/TaskModel.js';
-import { TASK_STATUS_ENUM } from '../src/modules/task/TaskStatusEnum.js';
+} from '../src/modules/meeting/MeetingModel';
+import { TaskModel, type ITask } from '../src/modules/task/TaskModel';
+import { TASK_STATUS_ENUM } from '../src/modules/task/TaskStatusEnum';
 import { mongooseConnect } from '../src/mongoose/mongooseConnect';
 
 await mongooseConnect();
