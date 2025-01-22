@@ -12,10 +12,10 @@ meetingRoutes.get('/', meetingAllGet);
 
 meetingRoutes.post('/', meetingPost);
 
+meetingRoutes.get('/stats', meetingStatsGet);
+
 meetingRoutes.get('/:id', meetingGet);
 
 meetingRoutes.put('/:id/transcript', meetingTranscriptPut);
-
-meetingRoutes.get('/stats', meetingStatsGet);
 
 export { meetingRoutes };
