@@ -23,6 +23,7 @@ const response = await fetch(`http://localhost:${config.PORT}/api/meetings`, {
   body: JSON.stringify(body),
   headers: {
     'x-user-id': userId,
+    'content-type': 'application/json',
   },
 });
 

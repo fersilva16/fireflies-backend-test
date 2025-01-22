@@ -14,7 +14,7 @@ const querySchema = z.object({
     .number()
     .min(1, 'Limit must be greater than or equal to 1')
     .max(100, 'Limit must be less than or equal to 100')
-    .default(10),
+    .default(100),
 });
 
 export const meetingAllGet = async (
