@@ -2,7 +2,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 
 import { authMiddleware } from './auth.middleware.js';
-import { dashboardRoutes } from './routes/dashboardRoutes.js';
+import { dashboardRoutes } from './dashboard/dashboardRoutes.js';
 import { meetingRoutes } from './meeting/meetingRoutes.js';
 import { config } from './config.js';
 import { errorHandler } from './errorHandler.js';
