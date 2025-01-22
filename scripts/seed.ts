@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import { MeetingModel, type IMeeting } from '../src/meeting/MeetingModel.js';
 import { TaskModel, type ITask } from '../src/task/TaskModel.js';
 import { config } from '../src/config.js';
+import { TASK_STATUS_ENUM } from '../src/task/TaskStatusEnum.js';
 
 await mongoose
   .connect(config.MONGODB_URI)
@@ -67,7 +68,7 @@ async function seedMeetings() {
 }
 
 async function seedTasks() {
-  await Task.deleteMany({});
+  await TaskModel.deleteMany({});
 
   const meetings = await MeetingModel.find();
   const tasks: ITask[] = [];
@@ -75,14 +76,12 @@ async function seedTasks() {
   for (const meeting of meetings) {
     const taskCount = Math.floor(Math.random() * 3) + 1; // 1 to 3 tasks per meeting
     for (let i = 0; i < taskCount; i++) {
-      const task = new Task({
+      const task = new TaskModel({
         meetingId: meeting._id,
         userId: meeting.userId,
         title: `Task ${i + 1} from ${meeting.title}`,
         description: `This is a sample task from meeting ${meeting.title}`,
-        status: ['pending', 'inProgress', 'completed'][
-          Math.floor(Math.random() * 3)
-        ],
+        status: Object.values(TASK_STATUS_ENUM)[Math.floor(Math.random() * 3)],
         dueDate: new Date(
           meeting.date.getTime() + Math.random() * 7 * 24 * 60 * 60 * 1000,
         ), // Random date within a week of the meeting
@@ -91,7 +90,7 @@ async function seedTasks() {
     }
   }
 
-  await Task.insertMany(tasks);
+  await TaskModel.insertMany(tasks);
 
   console.log('Tasks seeded successfully');
 }
