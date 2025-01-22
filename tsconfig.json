@@ -9,8 +9,5 @@
     "rootDir": "./src"
   },
   "include": ["src/**/*"],
-  "ts-node": {
-    "esm": true,
-    "experimentalSpecifierResolution": "node"
-  }
+  "exclude": ["**/node_modules", "**/dist", "**/.direnv"]
 }
