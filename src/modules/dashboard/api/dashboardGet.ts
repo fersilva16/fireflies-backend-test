@@ -1,8 +1,8 @@
 import type { ParameterizedContext } from 'koa';
 import { Types } from 'mongoose';
 
+import type { AuthenticatedState } from '../../../middleware/authMiddleware';
 import { MeetingModel } from '../../meeting/MeetingModel';
-import type { AuthenticatedState } from '../../middleware/authMiddleware';
 import { TaskModel } from '../../task/TaskModel';
 import { TASK_STATUS_ENUM } from '../../task/TaskStatusEnum';
 

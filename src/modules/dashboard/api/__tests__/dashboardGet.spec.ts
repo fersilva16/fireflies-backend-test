@@ -1,7 +1,7 @@
 import request from 'supertest';
 import { afterAll, beforeAll, expect, it, vi } from 'vitest';
 
-import { app } from '../../../app';
+import { app } from '../../../../app';
 import { meetingFixture } from '../../../meeting/meetingFixture';
 import { TASK_STATUS_ENUM } from '../../../task/TaskStatusEnum';
 import { taskFixture } from '../../../task/taskFixture';

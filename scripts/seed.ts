@@ -1,9 +1,12 @@
 import mongoose from 'mongoose';
 
-import { MeetingModel, type IMeeting } from '../src/meeting/MeetingModel.js';
+import {
+  MeetingModel,
+  type IMeeting,
+} from '../src/modules/meeting/MeetingModel.js';
+import { TaskModel, type ITask } from '../src/modules/task/TaskModel.js';
+import { TASK_STATUS_ENUM } from '../src/modules/task/TaskStatusEnum.js';
 import { mongooseConnect } from '../src/mongoose/mongooseConnect';
-import { TaskModel, type ITask } from '../src/task/TaskModel.js';
-import { TASK_STATUS_ENUM } from '../src/task/TaskStatusEnum.js';
 
 await mongooseConnect();
 

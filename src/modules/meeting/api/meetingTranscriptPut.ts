@@ -2,7 +2,7 @@ import type { ParameterizedContext } from 'koa';
 import { Types } from 'mongoose';
 import { z } from 'zod';
 
-import type { AuthenticatedState } from '../../middleware/authMiddleware';
+import type { AuthenticatedState } from '../../../middleware/authMiddleware';
 import { MeetingModel } from '../MeetingModel';
 
 interface MeetingTranscriptPutParams {

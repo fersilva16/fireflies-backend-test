@@ -1,6 +1,6 @@
 import type { ParameterizedContext } from 'koa';
 
-import type { AuthenticatedState } from '../../middleware/authMiddleware';
+import type { AuthenticatedState } from '../../../middleware/authMiddleware';
 import { MeetingModel } from '../MeetingModel';
 
 interface GeneralStats {
