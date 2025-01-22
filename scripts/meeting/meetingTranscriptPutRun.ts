@@ -2,15 +2,16 @@ import { config } from '../../src/config';
 
 const [, , ...unsanitizedArgs] = process.argv;
 
-if (unsanitizedArgs.length < 3) {
+if (unsanitizedArgs.length < 4) {
   console.log(
-    'Usage: npm run x scripts/meeting/meetingTranscriptPutRun.ts <userId> <meetingId> <transcript>',
+    'Usage: npm run x scripts/meeting/meetingTranscriptPutRun.ts <userId> <meetingId> <transcript> <duration>',
   );
 
   process.exit(1);
 }
 
-const [userId, meetingId, transcript] = unsanitizedArgs as [
+const [userId, meetingId, transcript, duration] = unsanitizedArgs as [
+  string,
   string,
   string,
   string,
@@ -18,6 +19,7 @@ const [userId, meetingId, transcript] = unsanitizedArgs as [
 
 const body = {
   transcript,
+  duration: Number(duration),
 };
 
 const response = await fetch(
