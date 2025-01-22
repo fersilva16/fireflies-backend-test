@@ -4,8 +4,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "node --import=tsx src/server.ts",
-    "seed": "node --import=tsx src/seed.ts"
+    "format": "prettier --write .",
+    "seed": "node --import=tsx src/seed.ts",
+    "start": "node --import=tsx src/server.ts"
   },
   "keywords": [],
   "author": "",
@@ -23,6 +24,7 @@
     "@types/mongoose": "^5.11.97",
     "@types/node": "^22.7.5",
     "nodemon": "^3.1.7",
+    "prettier": "^3.4.2",
     "ts-node": "^10.9.2",
     "tsx": "^4.19.1",
     "typescript": "^5.6.3"

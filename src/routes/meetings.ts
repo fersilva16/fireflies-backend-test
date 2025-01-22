@@ -34,11 +34,11 @@ router.get('/stats', async (req: AuthenticatedRequest, res) => {
         averageDuration: 45.3,
       },
       topParticipants: [
-        { participant: "John Doe", meetingCount: 20 },
-        { participant: "Jane Smith", meetingCount: 18 },
-        { participant: "Bob Johnson", meetingCount: 15 },
-        { participant: "Alice Brown", meetingCount: 12 },
-        { participant: "Charlie Davis", meetingCount: 10 },
+        { participant: 'John Doe', meetingCount: 20 },
+        { participant: 'Jane Smith', meetingCount: 18 },
+        { participant: 'Bob Johnson', meetingCount: 15 },
+        { participant: 'Alice Brown', meetingCount: 12 },
+        { participant: 'Charlie Davis', meetingCount: 10 },
       ],
       meetingsByDayOfWeek: [
         { dayOfWeek: 1, count: 10 },
