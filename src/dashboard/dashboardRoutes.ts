@@ -1,4 +1,5 @@
 import express from 'express';
+
 import { dashboardGet } from './api/dashboardGet.js';
 
 const router = express.Router();
