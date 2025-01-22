@@ -2,6 +2,7 @@ import request from 'supertest';
 import { expect, it } from 'vitest';
 
 import { app } from '../../../../app';
+import { taskFixture } from '../../../task/taskFixture';
 import { meetingFixture } from '../../meetingFixture';
 
 it('should return the meeting', async () => {
@@ -11,6 +12,11 @@ it('should return the meeting', async () => {
     userId,
   });
 
+  const task = await taskFixture({
+    userId,
+    meetingId: meeting._id,
+  });
+
   const response = await request(app.callback())
     .get(`/api/meetings/${meeting._id.toString()}`)
     .set('x-user-id', userId);
@@ -18,6 +24,9 @@ it('should return the meeting', async () => {
   expect(response.status).toBe(200);
 
   expect(response.body._id.toString()).toBe(meeting._id.toString());
+
+  expect(response.body.tasks).toHaveLength(1);
+  expect(response.body.tasks[0]._id.toString()).toBe(task._id.toString());
 });
 
 it('should not return meetings if user is not authenticated', async () => {

@@ -2,6 +2,7 @@ import type { ParameterizedContext } from 'koa';
 import { Types } from 'mongoose';
 
 import type { AuthenticatedState } from '../../../middleware/authMiddleware';
+import { TaskModel } from '../../task/TaskModel';
 import { MeetingModel } from '../MeetingModel';
 
 interface MeetingGetParams {
@@ -36,5 +37,13 @@ export const meetingGet = async (
     return;
   }
 
-  ctx.body = meeting;
+  const tasks = await TaskModel.find({
+    userId: ctx.state.userId,
+    meetingId: meeting._id,
+  });
+
+  ctx.body = {
+    ...meeting.toJSON(),
+    tasks,
+  };
 };
