@@ -1,4 +1,5 @@
 import mongoose, { Schema } from 'mongoose';
+
 import { TASK_STATUS_ENUM } from './TaskStatusEnum';
 
 export interface ITask {
