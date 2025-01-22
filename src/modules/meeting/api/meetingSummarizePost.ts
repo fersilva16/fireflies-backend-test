@@ -64,14 +64,12 @@ export const meetingSummarizePost = async (
     },
   );
 
-  // TODO: Should tasks be created from action items? What's the due date, status and description?
+  // IMPROVEMENT: enrich extra task information using LLM: due date and description
   const taskPayloads = result.actionItems.map((actionItem) => ({
     meetingId: meeting._id,
     userId: meeting.userId,
     title: actionItem,
-    description: '',
     status: TASK_STATUS_ENUM.PENDING,
-    dueDate: new Date(),
   }));
 
   await TaskModel.insertMany(taskPayloads);

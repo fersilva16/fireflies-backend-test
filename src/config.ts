@@ -15,4 +15,6 @@ export const config = {
     process.env.MONGODB_URI || 'mongodb://localhost:27017/meetingbot',
 
   SUMMARY_PROVIDER: process.env.SUMMARY_PROVIDER || SUMMARY_PROVIDER_ENUM.MOCK,
+
+  OPENAI_API_KEY: process.env.OPENAI_API_KEY,
 };
