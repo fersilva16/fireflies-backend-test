@@ -3,7 +3,9 @@ import { Types } from 'mongoose';
 
 import type { AuthenticatedState } from '../../../middleware/authMiddleware';
 import { TaskModel } from '../../task/TaskModel';
+import { taskApiMap } from '../../task/taskApiMap';
 import { MeetingModel } from '../MeetingModel';
+import { meetingApiMap } from '../meetingApiMap';
 
 interface MeetingGetParams {
   id: string;
@@ -43,7 +45,7 @@ export const meetingGet = async (
   });
 
   ctx.body = {
-    ...meeting.toJSON(),
-    tasks,
+    ...meetingApiMap(meeting),
+    tasks: tasks.map(taskApiMap),
   };
 };

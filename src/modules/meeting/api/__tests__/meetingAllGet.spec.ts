@@ -28,8 +28,24 @@ it('should return all meetings', async () => {
   expect(response.body.hasNextPage).toBe(false);
 
   expect(response.body.data).toHaveLength(2);
+
   expect(response.body.data[0]._id).toBe(meeting1._id.toString());
+  expect(response.body.data[0].title).toBe(meeting1.title);
+  expect(response.body.data[0].date).toBe(meeting1.date.toISOString());
+  expect(response.body.data[0].participants).toEqual(meeting1.participants);
+  expect(response.body.data[0].transcript).toBe(meeting1.transcript);
+  expect(response.body.data[0].summary).toBe(meeting1.summary);
+  expect(response.body.data[0].duration).toBe(meeting1.duration);
+  expect(response.body.data[0].actionItems).toEqual(meeting1.actionItems);
+
   expect(response.body.data[1]._id).toBe(meeting2._id.toString());
+  expect(response.body.data[1].title).toBe(meeting2.title);
+  expect(response.body.data[1].date).toBe(meeting2.date.toISOString());
+  expect(response.body.data[1].participants).toEqual(meeting2.participants);
+  expect(response.body.data[1].transcript).toBe(meeting2.transcript);
+  expect(response.body.data[1].summary).toBe(meeting2.summary);
+  expect(response.body.data[1].duration).toBe(meeting2.duration);
+  expect(response.body.data[1].actionItems).toEqual(meeting2.actionItems);
 });
 
 it('should return the first 2 meetings', async () => {

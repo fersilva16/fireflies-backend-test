@@ -1,6 +1,7 @@
 import mongoose, { Schema } from 'mongoose';
 
 export interface IMeeting {
+  _id: mongoose.Types.ObjectId;
   userId: string;
   title: string;
   date: Date;

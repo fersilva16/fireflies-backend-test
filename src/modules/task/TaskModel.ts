@@ -3,6 +3,7 @@ import mongoose, { Schema } from 'mongoose';
 import { TASK_STATUS_ENUM } from './TaskStatusEnum';
 
 export interface ITask {
+  _id: mongoose.Types.ObjectId;
   meetingId: mongoose.Types.ObjectId;
   userId: string;
   title: string;
