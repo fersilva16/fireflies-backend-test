@@ -27,6 +27,7 @@ const response = await fetch(
     body: JSON.stringify(body),
     headers: {
       'x-user-id': userId,
+      'content-type': 'application/json',
     },
   },
 );
