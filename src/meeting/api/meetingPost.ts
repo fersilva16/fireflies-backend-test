@@ -7,9 +7,9 @@ import { MeetingModel } from '../MeetingModel';
 const bodySchema = z.object({
   title: z.string().min(1, 'Title must not be empty'),
   date: z.string().datetime({ message: 'Invalid date format. Use ISO 8601' }),
-  participants: z.array(
-    z.string().min(1, 'Participant name must not be empty'),
-  ),
+  participants: z
+    .array(z.string().min(1, 'Participant name must not be empty'))
+    .min(1, 'At least one participant is required'),
 });
 
 export const meetingPost = async (

@@ -17,7 +17,7 @@ it('should return all meetings', async () => {
 
   const response = await request(app.callback())
     .get('/api/meetings')
-    .set('x-user-id', 'user1');
+    .set('x-user-id', userId);
 
   expect(response.status).toBe(200);
 
