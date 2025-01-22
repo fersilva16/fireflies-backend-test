@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 
 import { authMiddleware } from './auth.middleware.js';
 import { dashboardRoutes } from './routes/dashboardRoutes.js';
-import { meetingRoutes } from './routes/meetings.js';
+import { meetingRoutes } from './meeting/meetingRoutes.js';
 import { config } from './config.js';
 
 const app = express();

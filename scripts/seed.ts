@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-import { Meeting, IMeeting } from '../src/models/meeting.js';
+import { MeetingModel, type IMeeting } from '../src/meeting/MeetingModel.js';
 import { Task, ITask } from '../src/models/task.js';
 import { config } from '../src/config.js';
 
@@ -39,13 +39,13 @@ function randomParticipants(): string[] {
 }
 
 async function seedMeetings() {
-  await Meeting.deleteMany({});
+  await MeetingModel.deleteMany({});
 
   const meetings: IMeeting[] = [];
 
   for (let i = 0; i < 100; i++) {
     const userId = users[Math.floor(Math.random() * users.length)];
-    const meeting = new Meeting({
+    const meeting = new MeetingModel({
       userId: userId,
       title: `Meeting ${i + 1}`,
       date: randomDate(new Date(2023, 0, 1), new Date()),
@@ -61,7 +61,7 @@ async function seedMeetings() {
     meetings.push(meeting);
   }
 
-  await Meeting.insertMany(meetings);
+  await MeetingModel.insertMany(meetings);
 
   console.log('Meetings seeded successfully');
 }
@@ -69,7 +69,7 @@ async function seedMeetings() {
 async function seedTasks() {
   await Task.deleteMany({});
 
-  const meetings = await Meeting.find();
+  const meetings = await MeetingModel.find();
   const tasks: ITask[] = [];
 
   for (const meeting of meetings) {

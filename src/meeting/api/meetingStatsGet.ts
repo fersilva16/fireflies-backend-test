@@ -1,28 +1,7 @@
-import express from 'express';
+import { Response } from 'express';
+import { AuthenticatedRequest } from '../../auth.middleware';
 
-import { AuthenticatedRequest } from '../auth.middleware.js';
-import { Meeting } from '../models/meeting.js';
-
-export const router = express.Router();
-
-// GET all meetings for user
-router.get('/', async (req: AuthenticatedRequest, res) => {
-  try {
-    const meetings = await Meeting.find();
-    res.json({
-      total: meetings.length,
-      limit: req.query.limit,
-      page: req.query.page,
-      data: meetings,
-    });
-  } catch (err) {
-    res.status(500).json({ message: (err as Error).message });
-  }
-});
-
-// TODO: implement other endpoints
-
-router.get('/stats', (req: AuthenticatedRequest, res) => {
+export const meetingStatsGet = (req: AuthenticatedRequest, res: Response) => {
   try {
     // TODO: get statistics from the database
     const stats = {
@@ -55,6 +34,4 @@ router.get('/stats', (req: AuthenticatedRequest, res) => {
   } catch (err) {
     res.status(500).json({ message: (err as Error).message });
   }
-});
-
-export { router as meetingRoutes };
+};
