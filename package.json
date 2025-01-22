@@ -7,9 +7,12 @@
   "type": "module",
   "scripts": {
     "format": "prettier --write .",
+    "lint-staged": "lint-staged",
     "lint": "eslint .",
+    "prepare": "husky",
     "seed": "tsx src/seed.ts",
     "start": "tsx watch src/server.ts",
+    "type-check": "tsc --noEmit",
     "x": "tsx"
   },
   "dependencies": {
@@ -26,10 +29,18 @@
     "eslint": "^9.18.0",
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-unused-imports": "^4.1.4",
+    "lint-staged": "^15.4.1",
     "pino-pretty": "^13.0.0",
     "prettier": "^3.4.2",
     "tsx": "^4.19.1",
     "typescript": "^5.6.3",
     "typescript-eslint": "^8.21.0"
+  },
+  "lint-staged": {
+    "*.{js,mjs,ts,tsx}": [
+      "npm run lint -- --fix",
+      "npm run format",
+      "sh -c 'npm run type-check'"
+    ]
   }
 }

@@ -1,0 +1,11 @@
+branch="$(git rev-parse --abbrev-ref HEAD)"
+
+# Disable committing to main branch
+if [ "$branch" = "main" ]; then
+  echo "You can't commit directly to main branch"
+
+  exit 1
+fi
+
+npm run lint-staged --no-stash
+
