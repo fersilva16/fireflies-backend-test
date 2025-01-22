@@ -1,11 +1,12 @@
 import mongoose, { Schema } from 'mongoose';
+import { TASK_STATUS_ENUM } from './TaskStatusEnum';
 
 export interface ITask {
   meetingId: mongoose.Types.ObjectId;
   userId: string;
   title: string;
   description: string;
-  status: 'pending' | 'inProgress' | 'completed';
+  status: TASK_STATUS_ENUM;
   dueDate: Date;
 }
 
@@ -16,8 +17,8 @@ const taskSchema = new Schema<ITask>({
   description: String,
   status: {
     type: String,
-    enum: ['pending', 'inProgress', 'completed'],
-    default: 'pending',
+    enum: Object.values(TASK_STATUS_ENUM),
+    default: TASK_STATUS_ENUM.PENDING,
   },
   dueDate: Date,
 });
