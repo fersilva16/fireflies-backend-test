@@ -13,6 +13,8 @@
     "prepare": "husky",
     "seed": "tsx src/seed.ts",
     "start": "tsx watch src/server.ts",
+    "test": "vitest",
+    "coverage": "vitest run --coverage",
     "type-check": "tsc --noEmit",
     "x": "tsx"
   },
@@ -30,6 +32,7 @@
     "@types/koa": "^2.15.0",
     "@types/koa__router": "^12.0.4",
     "@types/node": "^22.7.5",
+    "@vitest/coverage-v8": "^3.0.3",
     "dotenv": "^16.4.7",
     "eslint": "^9.18.0",
     "eslint-plugin-import": "^2.31.0",
@@ -40,7 +43,8 @@
     "prettier": "^3.4.2",
     "tsx": "^4.19.1",
     "typescript": "^5.6.3",
-    "typescript-eslint": "^8.21.0"
+    "typescript-eslint": "^8.21.0",
+    "vitest": "^3.0.3"
   },
   "lint-staged": {
     "*.{js,mjs,ts,tsx}": [
