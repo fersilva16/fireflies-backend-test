@@ -14,8 +14,8 @@ const [userId, page, limit] = unsanitizedArgs;
 
 const queryParams = new URLSearchParams();
 
-queryParams.append('page', page);
-queryParams.append('limit', limit);
+if (page) queryParams.append('page', page);
+if (limit) queryParams.append('limit', limit);
 
 const response = await fetch(
   `http://localhost:${config.PORT}/api/meetings?${queryParams.toString()}`,
