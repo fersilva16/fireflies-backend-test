@@ -1,7 +1,7 @@
 import request from 'supertest';
 import { expect, it } from 'vitest';
 
-import { app } from '../../../app';
+import { app } from '../../../../app';
 import { MeetingModel } from '../../MeetingModel';
 
 it('should create a meeting', async () => {

@@ -1,8 +1,8 @@
 import Router from '@koa/router';
 
-import { dashboardRoutes } from '../dashboard/dashboardRoutes';
-import { meetingRoutes } from '../meeting/meetingRoutes';
 import { authMiddleware } from '../middleware/authMiddleware';
+import { dashboardRoutes } from '../modules/dashboard/dashboardRoutes';
+import { meetingRoutes } from '../modules/meeting/meetingRoutes';
 
 const apiRoutes = new Router();
 

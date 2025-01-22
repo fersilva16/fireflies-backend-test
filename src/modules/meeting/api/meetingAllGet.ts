@@ -1,8 +1,8 @@
 import type { ParameterizedContext } from 'koa';
 import { z } from 'zod';
 
-import type { AuthenticatedState } from '../../middleware/authMiddleware';
-import { mongoosePaginate } from '../../mongoose/mongoosePaginate';
+import type { AuthenticatedState } from '../../../middleware/authMiddleware';
+import { mongoosePaginate } from '../../../mongoose/mongoosePaginate';
 import { MeetingModel } from '../MeetingModel';
 
 const querySchema = z.object({
