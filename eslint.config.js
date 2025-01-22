@@ -81,10 +81,11 @@ export default eslint.config([
     },
   },
   {
-    // Disable unsafe member access for tests
+    // Disable unsafe rules for tests
     files: ['**/*.spec.ts'],
     rules: {
       '@typescript-eslint/no-unsafe-member-access': 'off',
+      '@typescript-eslint/no-unsafe-call': 'off',
     },
   },
 ]);
