@@ -4,6 +4,7 @@ import { z } from 'zod';
 
 import type { AuthenticatedState } from '../../../middleware/authMiddleware';
 import { MeetingModel } from '../MeetingModel';
+import { meetingApiMap } from '../meetingApiMap';
 
 interface MeetingTranscriptPutParams {
   id: string;
@@ -69,6 +70,8 @@ export const meetingTranscriptPut = async (
   );
 
   ctx.body = {
-    message: 'Transcript updated successfully',
+    ...meetingApiMap(meeting),
+    transcript,
+    duration,
   };
 };

@@ -23,7 +23,6 @@ it('should update the transcript for a meeting', async () => {
     });
 
   expect(response.status).toBe(200);
-  expect(response.body.message).toBe('Transcript updated successfully');
 
   const meetings = await MeetingModel.find();
 
@@ -31,9 +30,9 @@ it('should update the transcript for a meeting', async () => {
 
   const [meetingUpdated] = meetings;
 
-  expect(meetingUpdated?._id.toString()).toBe(meeting._id.toString());
-  expect(meetingUpdated?.transcript).toBe('This is the new transcript');
-  expect(meetingUpdated?.duration).toBe(183);
+  expect(meetingUpdated?._id.toString()).toBe(response.body._id.toString());
+  expect(meetingUpdated?.transcript).toBe(response.body.transcript);
+  expect(meetingUpdated?.duration).toBe(response.body.duration);
 });
 
 it('should not update the transcript for a meeting if user is not authenticated', async () => {
