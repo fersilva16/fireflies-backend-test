@@ -351,7 +351,3 @@ To run the tests, use the command `npm run test`.
 I've set the coverage threshold to 80% and tried to focus on the most important parts of the code such as the routes.
 
 To check the code coverage, use the command `npm run test:coverage`.
-
-```
-
-```
