@@ -13,16 +13,27 @@ export interface ITask {
 }
 
 const taskSchema = new Schema<ITask>({
-  meetingId: { type: Schema.Types.ObjectId, ref: 'Meeting' },
-  userId: String,
+  meetingId: {
+    type: Schema.Types.ObjectId,
+    ref: 'Meeting',
+    index: true,
+  },
+  userId: {
+    type: String,
+    index: true,
+  },
   title: String,
   description: String,
   status: {
     type: String,
     enum: Object.values(TASK_STATUS_ENUM),
     default: TASK_STATUS_ENUM.PENDING,
+    index: true,
   },
-  dueDate: Date,
+  dueDate: {
+    type: Date,
+    index: true,
+  },
 });
 
 export const TaskModel = mongoose.model<ITask>('Task', taskSchema);
