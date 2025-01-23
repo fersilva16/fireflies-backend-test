@@ -9,7 +9,7 @@ export interface ITask {
   title: string;
   description: string;
   status: TASK_STATUS_ENUM;
-  dueDate: Date;
+  dueDate?: Date;
 }
 
 const taskSchema = new Schema<ITask>({

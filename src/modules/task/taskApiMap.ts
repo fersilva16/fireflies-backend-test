@@ -7,6 +7,6 @@ export const taskApiMap = (task: ITask) => {
     title: task.title,
     description: task.description,
     status: task.status,
-    dueDate: task.dueDate.toISOString(),
+    dueDate: task.dueDate?.toISOString(),
   };
 };
