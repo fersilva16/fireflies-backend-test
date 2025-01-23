@@ -5,7 +5,9 @@ import type { AuthenticatedState } from '../../../middleware/authMiddleware';
 import { summaryProviderGet } from '../../summaryProvider/summaryProviderRegister';
 import { TaskModel } from '../../task/TaskModel';
 import { TASK_STATUS_ENUM } from '../../task/TaskStatusEnum';
+import { taskApiMap } from '../../task/taskApiMap';
 import { MeetingModel } from '../MeetingModel';
+import { meetingApiMap } from '../meetingApiMap';
 
 interface MeetingSummarizePostParams {
   id: string;
@@ -81,9 +83,12 @@ export const meetingSummarizePost = async (
     status: TASK_STATUS_ENUM.PENDING,
   }));
 
-  await TaskModel.insertMany(taskPayloads);
+  const tasks = await TaskModel.insertMany(taskPayloads);
 
   ctx.body = {
-    message: 'Summarization successful',
+    ...meetingApiMap(meeting),
+    summary: result.summary,
+    actionItems: result.actionItems,
+    tasks: tasks.map(taskApiMap),
   };
 };

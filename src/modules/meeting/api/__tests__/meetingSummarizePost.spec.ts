@@ -38,7 +38,8 @@ it('should summarize a meeting', async () => {
     .set('content-type', 'application/json');
 
   expect(response.status).toBe(200);
-  expect(response.body.message).toBe('Summarization successful');
+  expect(response.body._id.toString()).toBe(meeting._id.toString());
+  expect(response.body.tasks).toHaveLength(2);
 
   const meetings = await MeetingModel.find();
 
@@ -47,19 +48,18 @@ it('should summarize a meeting', async () => {
   const [meetingUpdated] = meetings;
 
   expect(meetingUpdated?._id.toString()).toBe(meeting._id.toString());
-  expect(meetingUpdated?.summary).toBe('This is the tra');
-  expect(meetingUpdated?.actionItems).toEqual([
-    'Action item 1',
-    'Action item 2',
-  ]);
+  expect(meetingUpdated?.summary).toBe(response.body.summary);
+  expect(meetingUpdated?.actionItems).toEqual(response.body.actionItems);
 
   const tasks = await TaskModel.find();
 
   expect(tasks).toHaveLength(2);
 
+  expect(tasks[0]?._id.toString()).toBe(response.body.tasks[0]._id.toString());
   expect(tasks[0]?.meetingId.toString()).toBe(meeting._id.toString());
   expect(tasks[0]?.title).toBe('Action item 1');
 
+  expect(tasks[1]?._id.toString()).toBe(response.body.tasks[1]._id.toString());
   expect(tasks[1]?.meetingId.toString()).toBe(meeting._id.toString());
   expect(tasks[1]?.title).toBe('Action item 2');
 });
