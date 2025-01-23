@@ -9,21 +9,21 @@ it('should return statistics for meetings', async () => {
 
   await meetingFixture({
     userId,
-    date: new Date(2025, 0, 1),
+    date: new Date('2025-01-01T12:00:00.000Z'),
     duration: 123,
     participants: ['John Doe'],
   });
 
   await meetingFixture({
     userId,
-    date: new Date(2025, 0, 2),
+    date: new Date('2025-01-02T12:00:00.000Z'),
     duration: 172,
     participants: ['John Doe', 'Alice Brown'],
   });
 
   await meetingFixture({
     userId,
-    date: new Date(2025, 0, 5),
+    date: new Date('2025-01-05T12:00:00.000Z'),
     duration: 12,
     participants: ['John Doe', 'Lorem Ipsum'],
   });
@@ -72,28 +72,28 @@ it('should not return statistics for meetings from other user', async () => {
 
   await meetingFixture({
     userId,
-    date: new Date(2025, 0, 1),
+    date: new Date('2025-01-01T12:00:00.000Z'),
     duration: 123,
     participants: ['John Doe'],
   });
 
   await meetingFixture({
     userId,
-    date: new Date(2025, 0, 2),
+    date: new Date('2025-01-02T12:00:00.000Z'),
     duration: 172,
     participants: ['John Doe', 'Alice Brown'],
   });
 
   await meetingFixture({
     userId,
-    date: new Date(2025, 0, 5),
+    date: new Date('2025-01-05T12:00:00.000Z'),
     duration: 12,
     participants: ['John Doe', 'Lorem Ipsum'],
   });
 
   await meetingFixture({
     userId: 'user2',
-    date: new Date(2025, 0, 1),
+    date: new Date('2025-01-01T12:00:00.000Z'),
     duration: 123,
     participants: ['John Doe'],
   });
