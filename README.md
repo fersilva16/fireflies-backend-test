@@ -256,7 +256,7 @@ Returns the total meetings, upcoming meetings, summary of tasks and the overdue 
 
 ## Summary Provider
 
-One part of this project that is worth mentioning separately is the Summmary Provider.
+One part of this project that is worth mentioning separately is the Summary Provider.
 
 It's a [hexagonal architecture](<https://en.wikipedia.org/wiki/Hexagonal_architecture_(software)>) approach to implement the summary so that the developers can test different prompts and models without changing the current behaviour of the application.
 
@@ -318,7 +318,7 @@ The project follows the structure that I'm most familiar with for Node.js REST A
 
 The folders are separated by feature to keep it easy to navigate, keeping together what is used together. The `modules` folder is the most notable one, as it contains the modules that make up the API, and where I kept most of the business logic.
 
-The name for files follows the pattern of containing first the feature/module it belongs to, and then the action. For example, the `meetingGet.ts` file. It helps with search to easily narrowdown the desired file.
+The name for files follows the pattern of containing first the feature/module it belongs to, and then the action. For example, the `meetingGet.ts` file. It helps with search to easily narrow down the desired file.
 
 For routing, each "level" of routes is separated into a different file. For example, the `/api/meetings` routes is defined in the `meetings` module, or the `/api` routes are defined separately as it is secured by the `authMiddleware`, and so on.
 
@@ -329,7 +329,7 @@ Test files follow the pattern `__tests__/*.spec.ts` and are kept alongside the s
 Some details on the stack and tools used:
 
 - MongoDB with mongoose as the database
-- Koa as the web framework, while the original challenge use express, I changed it to have better async and sync error handling with the [errorMiddleware](./src/middleware/errorMiddleware.ts). It's also the modern and activily maintenated alternative from the same team that created Express.
+- Koa as the web framework, while the original challenge use express, I changed it to have better async and sync error handling with the [errorMiddleware](./src/middleware/errorMiddleware.ts). It's also the modern and actively maintenated alternative from the same team that created Express.
 - Vitest for testing framework.
 - Zod for schema validation.
 - ESLint for linting with `typescript-eslint` and `eslint-import`.
