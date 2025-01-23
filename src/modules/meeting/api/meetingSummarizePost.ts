@@ -39,6 +39,15 @@ export const meetingSummarizePost = async (
     return;
   }
 
+  if (!meeting.transcript) {
+    ctx.status = 400;
+    ctx.body = {
+      message: 'Meeting has no transcript',
+    };
+
+    return;
+  }
+
   const provider = summaryProviderGet();
 
   const result = await provider.summarize({ transcript: meeting.transcript });
