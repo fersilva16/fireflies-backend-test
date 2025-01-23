@@ -18,7 +18,10 @@ const meetingSchema = new Schema<IMeeting>({
     index: true,
   },
   title: String,
-  date: Date,
+  date: {
+    type: Date,
+    index: true,
+  },
   participants: [String],
   transcript: String,
   summary: String,
