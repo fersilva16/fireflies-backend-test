@@ -8,6 +8,9 @@ on:
     branches:
       - main
 
+# concurrency required because of mongodb-memory-server conflicting over lock in cache
+concurrency: ci-${{ github.repository }}-test
+
 jobs:
   release:
     runs-on: ubuntu-latest
@@ -18,8 +21,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-          # cache removed because of mongodb-memory-server conflicting over lock
-          # cache: 'npm'
+          cache: 'npm'
 
       - name: Install dependencies
         run: npm ci --ignore-scripts
