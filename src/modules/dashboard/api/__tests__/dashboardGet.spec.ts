@@ -15,14 +15,14 @@ afterAll(() => {
 });
 
 it('should return the dashboard', async () => {
-  vi.setSystemTime(new Date(2025, 0, 22, 12, 0, 0));
+  vi.setSystemTime(new Date('2025-01-03T12:00:00.000Z'));
 
   const userId = 'user1';
 
   const meeting1 = await meetingFixture({
     userId,
     title: 'Meeting 1',
-    date: new Date(2025, 0, 1, 12, 0, 0),
+    date: new Date('2025-01-01T12:00:00.000Z'),
     participants: ['John Doe', 'Alice Brown'],
   });
 
@@ -30,21 +30,21 @@ it('should return the dashboard', async () => {
     userId,
     meetingId: meeting1._id,
     title: 'Task 1',
-    dueDate: new Date(2025, 0, 3, 12, 0, 0),
+    dueDate: new Date('2025-01-03T12:00:00.000Z'),
   });
 
   await taskFixture({
     userId,
     meetingId: meeting1._id,
     title: 'Task 2',
-    dueDate: new Date(2025, 0, 4, 12, 0, 0),
+    dueDate: new Date('2025-01-04T12:00:00.000Z'),
     status: TASK_STATUS_ENUM.COMPLETED,
   });
 
   const meeting2 = await meetingFixture({
     userId,
     title: 'Meeting 2',
-    date: new Date(2025, 0, 2, 12, 0, 0),
+    date: new Date('2025-01-02T12:00:00.000Z'),
     participants: ['John Doe'],
   });
 
@@ -52,14 +52,14 @@ it('should return the dashboard', async () => {
     userId,
     meetingId: meeting2._id,
     title: 'Task 3',
-    dueDate: new Date(2025, 0, 3, 12, 0, 0),
+    dueDate: new Date('2025-01-03T12:00:00.000Z'),
     status: TASK_STATUS_ENUM.IN_PROGRESS,
   });
 
   const meeting3 = await meetingFixture({
     userId,
     title: 'Meeting 3',
-    date: new Date(2025, 1, 12, 12, 0, 0),
+    date: new Date('2025-02-12T12:00:00.000Z'),
     participants: ['John Doe', 'Alice Brown'],
   });
 
@@ -67,14 +67,14 @@ it('should return the dashboard', async () => {
     userId,
     meetingId: meeting3._id,
     title: 'Task 4',
-    dueDate: new Date(2025, 1, 14, 12, 0, 0),
+    dueDate: new Date('2025-02-14T12:00:00.000Z'),
   });
 
   await taskFixture({
     userId,
     meetingId: meeting3._id,
     title: 'Task 5',
-    dueDate: new Date(2025, 1, 15, 12, 0, 0),
+    dueDate: new Date('2025-02-15T12:00:00.000Z'),
     status: TASK_STATUS_ENUM.IN_PROGRESS,
   });
 
@@ -88,14 +88,14 @@ it('should return the dashboard', async () => {
     overdueTasks: [
       {
         _id: task1._id.toString(),
-        dueDate: '2025-01-03T15:00:00.000Z',
+        dueDate: '2025-01-03T12:00:00.000Z',
         meetingId: meeting1._id.toString(),
         meetingTitle: 'Meeting 1',
         title: 'Task 1',
       },
       {
         _id: task3._id.toString(),
-        dueDate: '2025-01-03T15:00:00.000Z',
+        dueDate: '2025-01-03T12:00:00.000Z',
         meetingId: meeting2._id.toString(),
         meetingTitle: 'Meeting 2',
         title: 'Task 3',
@@ -109,7 +109,7 @@ it('should return the dashboard', async () => {
     totalMeetings: 3,
     upcomingMeetings: [
       {
-        date: '2025-02-12T15:00:00.000Z',
+        date: '2025-02-12T12:00:00.000Z',
         participantCount: 2,
         title: 'Meeting 3',
       },
@@ -125,7 +125,7 @@ it('should not return the dashboard if user is not authenticated', async () => {
 });
 
 it('should return the dashboard without meetings and tasks from other user', async () => {
-  vi.setSystemTime(new Date(2025, 0, 22, 12, 0, 0));
+  vi.setSystemTime(new Date('2025-01-22T12:00:00.000Z'));
 
   const userId = 'user1';
 
@@ -140,21 +140,21 @@ it('should return the dashboard without meetings and tasks from other user', asy
     userId,
     meetingId: meeting1._id,
     title: 'Task 1',
-    dueDate: new Date(2025, 0, 3, 12, 0, 0),
+    dueDate: new Date('2025-01-03T12:00:00.000Z'),
   });
 
   await taskFixture({
     userId,
     meetingId: meeting1._id,
     title: 'Task 2',
-    dueDate: new Date(2025, 0, 4, 12, 0, 0),
+    dueDate: new Date('2025-01-04T12:00:00.000Z'),
     status: TASK_STATUS_ENUM.COMPLETED,
   });
 
   const meeting2 = await meetingFixture({
     userId,
     title: 'Meeting 2',
-    date: new Date(2025, 0, 2, 12, 0, 0),
+    date: new Date('2025-01-02T12:00:00.000Z'),
     participants: ['John Doe'],
   });
 
@@ -162,14 +162,14 @@ it('should return the dashboard without meetings and tasks from other user', asy
     userId,
     meetingId: meeting2._id,
     title: 'Task 3',
-    dueDate: new Date(2025, 0, 3, 12, 0, 0),
+    dueDate: new Date('2025-01-03T12:00:00.000Z'),
     status: TASK_STATUS_ENUM.IN_PROGRESS,
   });
 
   const meeting3 = await meetingFixture({
     userId,
     title: 'Meeting 3',
-    date: new Date(2025, 1, 12, 12, 0, 0),
+    date: new Date('2025-02-12T12:00:00.000Z'),
     participants: ['John Doe', 'Alice Brown'],
   });
 
@@ -177,21 +177,21 @@ it('should return the dashboard without meetings and tasks from other user', asy
     userId,
     meetingId: meeting3._id,
     title: 'Task 4',
-    dueDate: new Date(2025, 1, 14, 12, 0, 0),
+    dueDate: new Date('2025-02-14T12:00:00.000Z'),
   });
 
   await taskFixture({
     userId,
     meetingId: meeting3._id,
     title: 'Task 5',
-    dueDate: new Date(2025, 1, 15, 12, 0, 0),
+    dueDate: new Date('2025-02-15T12:00:00.000Z'),
     status: TASK_STATUS_ENUM.IN_PROGRESS,
   });
 
   const meeting4 = await meetingFixture({
     userId: 'user2',
     title: 'Meeting 4',
-    date: new Date(2025, 1, 13, 12, 0, 0),
+    date: new Date('2025-01-13T12:00:00.000Z'),
     participants: ['John Doe', 'Alice Brown'],
   });
 
@@ -199,7 +199,7 @@ it('should return the dashboard without meetings and tasks from other user', asy
     userId: 'user2',
     meetingId: meeting4._id,
     title: 'Task 6',
-    dueDate: new Date(2025, 1, 16, 12, 0, 0),
+    dueDate: new Date('2025-01-16T12:00:00.000Z'),
     status: TASK_STATUS_ENUM.COMPLETED,
   });
 
@@ -207,7 +207,7 @@ it('should return the dashboard without meetings and tasks from other user', asy
     userId: 'user2',
     meetingId: meeting4._id,
     title: 'Task 7',
-    dueDate: new Date(2025, 1, 17, 12, 0, 0),
+    dueDate: new Date('2025-01-17T12:00:00.000Z'),
     status: TASK_STATUS_ENUM.IN_PROGRESS,
   });
 
@@ -215,7 +215,7 @@ it('should return the dashboard without meetings and tasks from other user', asy
     userId: 'user2',
     meetingId: meeting4._id,
     title: 'Task 8',
-    dueDate: new Date(2025, 1, 18, 12, 0, 0),
+    dueDate: new Date('2025-01-18T12:00:00.000Z'),
     status: TASK_STATUS_ENUM.PENDING,
   });
 
@@ -229,14 +229,14 @@ it('should return the dashboard without meetings and tasks from other user', asy
     overdueTasks: [
       {
         _id: task1._id.toString(),
-        dueDate: '2025-01-03T15:00:00.000Z',
+        dueDate: '2025-01-03T12:00:00.000Z',
         meetingId: meeting1._id.toString(),
         meetingTitle: 'Meeting 1',
         title: 'Task 1',
       },
       {
         _id: task3._id.toString(),
-        dueDate: '2025-01-03T15:00:00.000Z',
+        dueDate: '2025-01-03T12:00:00.000Z',
         meetingId: meeting2._id.toString(),
         meetingTitle: 'Meeting 2',
         title: 'Task 3',
@@ -250,7 +250,7 @@ it('should return the dashboard without meetings and tasks from other user', asy
     totalMeetings: 3,
     upcomingMeetings: [
       {
-        date: '2025-02-12T15:00:00.000Z',
+        date: '2025-02-12T12:00:00.000Z',
         participantCount: 2,
         title: 'Meeting 3',
       },
