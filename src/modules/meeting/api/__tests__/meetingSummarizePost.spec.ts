@@ -92,6 +92,23 @@ it('should not summarize a meeting if meeting does not exist', async () => {
   expect(response.body.message).toBe('Meeting not found');
 });
 
+it('should not summarize a meeting if it has no transcript', async () => {
+  const userId = 'user1';
+
+  const meeting = await meetingFixture({
+    userId,
+    transcript: undefined,
+  });
+
+  const response = await request(app.callback())
+    .post(`/api/meetings/${meeting._id.toString()}/summarize`)
+    .set('x-user-id', userId)
+    .set('content-type', 'application/json');
+
+  expect(response.status).toBe(400);
+  expect(response.body.message).toBe('Meeting has no transcript');
+});
+
 it('should not summarize a meeting from other user', async () => {
   const userId = 'user1';
 
